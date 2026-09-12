@@ -28,7 +28,7 @@ export async function listRequestsHandler(req: Request, res: Response) {
 }
 
 export async function getRequestHandler(req: Request, res: Response) {
-  const request = await getConsultationRequestById(req.params.id);
+  const request = await getConsultationRequestById(req.params.id!);
   if (!request) return res.status(404).json({ message: "درخواست یافت نشد" });
   return res.json(request);
 }
@@ -38,7 +38,7 @@ export async function updateRequestHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  return res.json(await updateConsultationRequest(req.params.id, parsed.data));
+  return res.json(await updateConsultationRequest(req.params.id!, parsed.data));
 }
 
 export async function addNoteHandler(req: Request, res: Response) {
@@ -46,6 +46,6 @@ export async function addNoteHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  const note = await addRequestNote(req.params.id, req.auth!.adminUserId, parsed.data.note);
+  const note = await addRequestNote(req.params.id!, req.auth!.adminUserId, parsed.data.note);
   return res.status(201).json(note);
 }
