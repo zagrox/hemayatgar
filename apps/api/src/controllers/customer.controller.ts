@@ -34,7 +34,7 @@ export async function listCustomersHandler(req: Request, res: Response) {
 }
 
 export async function getCustomerHandler(req: Request, res: Response) {
-  const customer = await getCustomerById(req.params.id);
+  const customer = await getCustomerById(req.params.id!);
   if (!customer) return res.status(404).json({ message: "مشتری یافت نشد" });
   return res.json(customer);
 }
@@ -56,11 +56,11 @@ export async function updateCustomerHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  return res.json(await updateCustomer(req.params.id, parsed.data));
+  return res.json(await updateCustomer(req.params.id!, parsed.data));
 }
 
 export async function deleteCustomerHandler(req: Request, res: Response) {
-  await deleteCustomer(req.params.id);
+  await deleteCustomer(req.params.id!);
   return res.status(204).send();
 }
 
@@ -69,7 +69,7 @@ export async function addInteractionHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  const interaction = await addCustomerInteraction(req.params.id, {
+  const interaction = await addCustomerInteraction(req.params.id!, {
     ...parsed.data,
     createdById: req.auth?.adminUserId,
   });

@@ -31,6 +31,6 @@ export async function uploadMediaHandler(req: Request, res: Response) {
 }
 
 export async function deleteMediaHandler(req: Request, res: Response) {
-  await deleteMediaFile(req.params.id);
+  await deleteMediaFile(req.params.id!);
   return res.status(204).send();
 }

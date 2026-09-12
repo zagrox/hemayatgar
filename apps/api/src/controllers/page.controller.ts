@@ -25,7 +25,7 @@ export async function listPagesHandler(_req: Request, res: Response) {
 }
 
 export async function getPageHandler(req: Request, res: Response) {
-  const page = await getPageBySlug(req.params.slug);
+  const page = await getPageBySlug(req.params.slug!);
   if (!page) return res.status(404).json({ message: "صفحه یافت نشد" });
   return res.json(page);
 }
@@ -48,10 +48,10 @@ export async function updatePageHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  return res.json(await updatePage(req.params.id, parsed.data));
+  return res.json(await updatePage(req.params.id!, parsed.data));
 }
 
 export async function deletePageHandler(req: Request, res: Response) {
-  await deletePage(req.params.id);
+  await deletePage(req.params.id!);
   return res.status(204).send();
 }

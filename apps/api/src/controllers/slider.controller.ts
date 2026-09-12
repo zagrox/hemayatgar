@@ -41,10 +41,10 @@ export async function updateSliderHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  return res.json(await updateSliderItem(req.params.id, parsed.data));
+  return res.json(await updateSliderItem(req.params.id!, parsed.data));
 }
 
 export async function deleteSliderHandler(req: Request, res: Response) {
-  await deleteSliderItem(req.params.id);
+  await deleteSliderItem(req.params.id!);
   return res.status(204).send();
 }

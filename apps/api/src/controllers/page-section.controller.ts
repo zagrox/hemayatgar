@@ -32,7 +32,7 @@ const updateSchema = z.object({
 });
 
 export async function listSectionsHandler(req: Request, res: Response) {
-  return res.json(await listPageSections(req.params.pageSlug));
+  return res.json(await listPageSections(req.params.pageSlug!));
 }
 
 export async function createSectionHandler(req: Request, res: Response) {
@@ -48,11 +48,11 @@ export async function updateSectionHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  return res.json(await updatePageSection(req.params.id, parsed.data));
+  return res.json(await updatePageSection(req.params.id!, parsed.data));
 }
 
 export async function deleteSectionHandler(req: Request, res: Response) {
-  await deletePageSection(req.params.id);
+  await deletePageSection(req.params.id!);
   return res.status(204).send();
 }
 

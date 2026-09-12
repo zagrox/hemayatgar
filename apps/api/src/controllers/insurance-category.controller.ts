@@ -35,7 +35,7 @@ export async function listCategoriesHandler(_req: Request, res: Response) {
 }
 
 export async function getCategoryHandler(req: Request, res: Response) {
-  const category = await getInsuranceCategoryBySlug(req.params.slug);
+  const category = await getInsuranceCategoryBySlug(req.params.slug!);
   if (!category) return res.status(404).json({ message: "رشته بیمه یافت نشد" });
   return res.json(category);
 }
@@ -57,10 +57,10 @@ export async function updateCategoryHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  return res.json(await updateInsuranceCategory(req.params.id, parsed.data));
+  return res.json(await updateInsuranceCategory(req.params.id!, parsed.data));
 }
 
 export async function deleteCategoryHandler(req: Request, res: Response) {
-  await deleteInsuranceCategory(req.params.id);
+  await deleteInsuranceCategory(req.params.id!);
   return res.status(204).send();
 }

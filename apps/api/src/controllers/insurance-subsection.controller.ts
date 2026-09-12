@@ -48,10 +48,10 @@ export async function updateSubsectionHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  return res.json(await updateInsuranceSubsection(req.params.id, parsed.data));
+  return res.json(await updateInsuranceSubsection(req.params.id!, parsed.data));
 }
 
 export async function deleteSubsectionHandler(req: Request, res: Response) {
-  await deleteInsuranceSubsection(req.params.id);
+  await deleteInsuranceSubsection(req.params.id!);
   return res.status(204).send();
 }

@@ -15,7 +15,7 @@ export async function unreadCountHandler(_req: Request, res: Response) {
 }
 
 export async function markReadHandler(req: Request, res: Response) {
-  return res.json(await markNotificationRead(req.params.id));
+  return res.json(await markNotificationRead(req.params.id!));
 }
 
 export async function markAllReadHandler(_req: Request, res: Response) {

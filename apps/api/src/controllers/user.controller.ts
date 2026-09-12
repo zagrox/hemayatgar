@@ -47,6 +47,6 @@ export async function updateUserHandler(req: Request, res: Response) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
 
-  const user = await updateAdminUser(req.params.id, parsed.data);
+  const user = await updateAdminUser(req.params.id!, parsed.data);
   return res.json({ id: user.id });
 }

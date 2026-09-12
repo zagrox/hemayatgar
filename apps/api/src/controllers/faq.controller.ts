@@ -43,10 +43,10 @@ export async function updateFaqHandler(req: Request, res: Response) {
   if (!parsed.success) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
-  return res.json(await updateFaqItem(req.params.id, parsed.data));
+  return res.json(await updateFaqItem(req.params.id!, parsed.data));
 }
 
 export async function deleteFaqHandler(req: Request, res: Response) {
-  await deleteFaqItem(req.params.id);
+  await deleteFaqItem(req.params.id!);
   return res.status(204).send();
 }
