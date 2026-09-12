@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+export type { PageSectionType, RequestStatus } from "@prisma/client";
 
 // جلوگیری از ساخت چندباره PrismaClient در حالت توسعه (hot-reload)
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
