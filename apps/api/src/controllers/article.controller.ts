@@ -37,7 +37,7 @@ export async function listArticlesHandler(_req: Request, res: Response) {
 }
 
 export async function getArticleHandler(req: Request, res: Response) {
-  const article = await getArticleBySlug(req.params.slug);
+  const article = await getArticleBySlug(req.params.slug!);
   if (!article) return res.status(404).json({ message: "مقاله یافت نشد" });
   return res.json(article);
 }
@@ -61,11 +61,11 @@ export async function updateArticleHandler(req: Request, res: Response) {
     return res.status(400).json({ message: "اطلاعات ورودی نامعتبر است", errors: parsed.error.flatten() });
   }
   const data = { ...parsed.data, ...(parsed.data.status === "PUBLISHED" ? { publishedAt: new Date() } : {}) };
-  return res.json(await updateArticle(req.params.id, data));
+  return res.json(await updateArticle(req.params.id!, data));
 }
 
 export async function deleteArticleHandler(req: Request, res: Response) {
-  await deleteArticle(req.params.id);
+  await deleteArticle(req.params.id!);
   return res.status(204).send();
 }
 
